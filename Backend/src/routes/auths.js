@@ -14,13 +14,12 @@ module.exports = (app) => {
   const router = express.Router();
 
   router.post('/signin', (req, res, next) => {
-    app.services.name.findByField({ email: req.body.email })
+    app.services.utilizador.findByField({ email: req.body.email })
       .then(async (user) => {
-        console.log(user);
-        if (bcryptUp.compareSync(req.body.pass, user.pass)) {
+        if (user && bcryptUp.compareSync(req.body.password, user.password)) {
           const payload = {
             id: user.id,
-            name: user.name,
+            nome: user.nome,
             email: user.email,
             expires: Date.now() + (1000 * 60 * 60), // expire: Date.now() + (1000 * 60 * 60) - 1 hour
           };
