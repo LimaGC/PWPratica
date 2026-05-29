@@ -15,7 +15,7 @@ module.exports = (app) => {
   const strategy = new Strategy(params, (payload, done) => {
     if (new Date() >= payload.expires) done(null, false);
 
-    app.services.name.findByField({ email: payload.email })
+    app.services.utilizador.findByField({ email: payload.email })
       .then((user) => {
         if (user) done(null, { ...payload });
         else done(null, false);
